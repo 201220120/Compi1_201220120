@@ -19,6 +19,9 @@ PRINCIPAL	{TEXTO}+(".pal")
 %%
 
 "principal"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_PRINCIPAL;}
+"if"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SI;}
+"menor"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_MENOR;}
+
 "archivo"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_ARCHIVO; }
 "nombre"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_NOMBRE; }
 "tipo"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_TIPO; }
