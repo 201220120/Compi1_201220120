@@ -1,0 +1,23 @@
+funcion entero suma_enteros (entero var1, entero var2, decimal var3, booleano var4 )
+{
+variable entero resultado;
+
+variable entero resultado2 := 4, resultado4 := <+resultado2 <*4 4>>, resultado5 := <^ 3 2>;
+
+variable entero hola;
+
+retornar
+
+}
+
+funcion decimal resta_enteros ( )
+{
+variable entero resultado;
+
+variable entero resultado2 , resultado4 ;
+
+variable entero hola;
+
+retornar
+
+}

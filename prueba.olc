@@ -1,0 +1,15 @@
+prueba{
+	archivo : { 
+		nombre : "funciones.fnm",
+		tipo: fnm
+	},
+		archivo : 
+	{
+		nombre : "ejecucion.pal",
+		tipo: pal
+	},
+	principal : {
+		nombre: "ejecucion.pal"
+	}
+
+}
