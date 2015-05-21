@@ -28,6 +28,8 @@ PRINCIPAL	{TEXTO}+(".pal")
 "menorigual"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_MENORIGUAL;}
 "igual"			{int largo = strlen(yytext);yycolumno+=largo; return RESERV_IGUAL;}
 "diferente"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_DIFERENTE;}
+"mientras"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_MIENTRAS;}
+"para"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_PARA;}
 
 "archivo"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_ARCHIVO; }
 "nombre"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_NOMBRE; }

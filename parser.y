@@ -15,7 +15,7 @@ DICCIONARIO diccionario; /* variable global para el diccionario */
     char * texto;
 }
 %token RESERV_ARCHIVO PRENTERO RESERV_PRINCIPAL RESERV_NOMBRE  RESERV_FUNCION RESERV_VARIABLE RESERV_RETORNAR   RESERV_SI RESERV_MENOR
-RESERV_MAYOR RESERV_MAYORIGUAL RESERV_MENORIGUAL RESERV_IGUAL RESERV_DIFERENTE RESERV_SINO RESERV_SINOSI
+RESERV_MAYOR RESERV_MAYORIGUAL RESERV_MENORIGUAL RESERV_IGUAL RESERV_DIFERENTE RESERV_SINO RESERV_SINOSI RESERV_MIENTRAS RESERV_PARA
 %token <valor_real> CONSTANTE_REAL
 %token <valor_entero> CONSTANTE_ENTERA
 %token <texto> IDENTIFICADOR TIPO_ARCHIVO TIPO_PRINCIPAL RESERV_TIPO RESERV_FNM RESERV_PAL  RESERV_ENTERO RESERV_DECIMAL RESERV_BOOLEANO
@@ -62,8 +62,24 @@ contenidocuerpo: declararvariable1 ';'
 		| sentencia
 ;
 sentencia: 	si
+		| mientras
+		| para
 	
 ;
+mientras:	RESERV_MIENTRAS '(' x
+x:		comparacion y
+y:		')' '{' cuerpo '}'
+;
+
+para:		RESERV_PARA '(' declararvariable1 ';' comparacion ';' asigvalor  ')' '{' cuerpo '}'
+;
+
+
+
+/*
+para  : PRPARA PARIZ asignacion comparacion PCOMA asignacion PARIZ sentencia PRFINPARA
+  ;
+*/
 si:		RESERV_SI '(' sh 
 sh:		comparacion shh 
 shh:		')' '{' cuerpo '}' h
@@ -76,7 +92,7 @@ z:		 RESERV_SINO '{' cuerpo '}'
 		
 ;
 
-comparacion : expresionentera comparador b
+comparacion : '<' expresionentera comparador b '>'
 b  : expresionentera
   | CONSTANTE_ENTERA
   | CONSTANTE_REAL
@@ -88,44 +104,7 @@ comparador:	RESERV_MENOR
 	|	RESERV_IGUAL 
 	|	RESERV_DIFERENTE
 ;
-/*
-si  : PRSI PARIZ sh
-sh  : comparacion shh
-  | oplogica shh
-shh  : PARDE PRENTONCES sentencia h
-h  : PRFINSI
-  | PRSINOSI PARIZ comparacion PARDE PRENTONCES sentencia i
-i  : h
-  | z
-z  : PRSINO PRENTONCES sentencia PRFINSI
-  ;
-*/
-/*
 
- 
-sentencia : declaracion sentencia 
-  | declaracion 
-  | asignacion sentencia 
-  | asignacion
-  | mientras sentencia 
-  | mientras
-  | hacermientras sentencia 
-  | hacermientras 
-  | para sentencia
-  | para
-  | si sentencia 
-  | si
-  | entrada sentencia
-  | entrada
-  | salida sentencia
-  | salida
-  ;
-
-si (<mi_variable1 menor 4>) 
-	{  
-		resultado2 : = 3;
-	}
-*/
 
 declararvariable1: RESERV_VARIABLE tipovariable
 		| IDENTIFICADOR ':' '=' expresion { ENTRADA * entrada = buscar_diccionario(&diccionario,$1);
