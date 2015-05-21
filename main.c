@@ -9,6 +9,7 @@
 #include <stdlib.h>
 
 #include <string.h>
+
 /*
  * 
  */
@@ -88,7 +89,57 @@ void generarLexico(FILE *errLex) {
 void generarSintactico(char* s2) {
     printf("\n");
     system(s2);
-    
+    FILE *arc1;
+    arc1 = fopen("archivo1.txt", "r");
+    char lineas[800];
+    char *ptrToken;
+    int i = 1;
+    char rango[3];
+    while (fscanf(arc1, "%s", lineas) == 1) {
+        ptrToken = strtok(lineas, ",");
+
+        while (ptrToken != NULL) {
+            generarAnalisis(ptrToken);
+            ptrToken = strtok(NULL, ",");
+        }
+
+    }
+    fclose(arc1);
+
+
+}
+
+int generarAnalisis(char* ptrToken) {
+    char* tmp2 = "Se asigna la memoria necesaria para el funcionamiento del archivo";
+    char TInOrden[900];
+
+    char* s1 = malloc(sizeof (char)*(2 * strlen(TInOrden) + strlen(tmp2) + 10));
+    char* tmp1 = "./scanner ";
+    printf("\n\n.:Analisis Lexico del archivo: %s\n\n", ptrToken);
+    strcpy(s1, tmp1);
+    strcat(s1, ptrToken);
+    system(s1);
+    FILE *errLex = NULL;
+    errLex = fopen("errLexico.txt", "r");
+    long int tamano;
+    fseek(errLex, 0, SEEK_END); //Nos vamos el final del archivo
+    tamano = ftell(errLex);
+
+    if (tamano > 1) {
+        generarLexico(errLex);
+        if (remove("errLexico.txt") == -1)
+            printf("Se encontraron errores lexicos en el archivo %s\nNo se puede continuar con el analisis.", ptrToken);
+        return 0;
+    } else
+        printf("\nNo se han encontrado errores léxicos\n");
+
+    printf("\n.:Realización de analisis sintactico:.\n");
+    char* tmp3 = "./analizador ";
+    char* s2 = malloc(sizeof (char)*(2 * strlen(TInOrden) + strlen(tmp2) + 10));
+    strcpy(s2, tmp3);
+    strcat(s2, ptrToken);
+    system(s2);
+
 
 
 }
@@ -121,8 +172,8 @@ int main(int argc, char* argv[]) {
 
             if (tamano > 1) {
                 generarLexico(errLex);
-                
-                return 0;
+                if (remove("errLexico.txt") == -1)
+                    return 0;
 
             } else
                 printf("\nNo se han encontrado errores léxicos\n");
@@ -134,14 +185,14 @@ int main(int argc, char* argv[]) {
             strcpy(s2, tmp3);
             strcat(s2, nombreArchivo);
             generarSintactico(s2);
-
+            if (remove("archivo1.txt") == -1)
         }
 
         fclose(archivo);
 
 
     }
-    
+
 
     return 0;
 }
