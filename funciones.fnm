@@ -4,7 +4,8 @@ variable entero resultado;
 
 variable entero resultado2 := 4, resultado4 := <+resultado2 <*4 4>>, resultado5 := <^ 3 2>;
 
-variable entero hola;
+variable decimal hola:=2;
+hola := 3;
 
 retornar
 
@@ -16,7 +17,7 @@ variable entero resultado;
 
 variable entero resultado2 , resultado4 ;
 
-variable entero hola;
+variable entero hola,esc:=<+hola 1>;
 
 retornar
 

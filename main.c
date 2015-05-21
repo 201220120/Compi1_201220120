@@ -127,8 +127,8 @@ int generarAnalisis(char* ptrToken) {
 
     if (tamano > 1) {
         generarLexico(errLex);
+        printf("Se encontraron errores lexicos en el archivo %s\nNo se puede continuar con el analisis.", ptrToken);
         if (remove("errLexico.txt") == -1)
-            printf("Se encontraron errores lexicos en el archivo %s\nNo se puede continuar con el analisis.", ptrToken);
         return 0;
     } else
         printf("\nNo se han encontrado errores léxicos\n");
@@ -185,7 +185,8 @@ int main(int argc, char* argv[]) {
             strcpy(s2, tmp3);
             strcat(s2, nombreArchivo);
             generarSintactico(s2);
-            if (remove("archivo1.txt") == -1)
+                
+                
         }
 
         fclose(archivo);
@@ -193,7 +194,7 @@ int main(int argc, char* argv[]) {
 
     }
 
-
+    if (remove("archivo1.txt") == -1)
     return 0;
 }
 

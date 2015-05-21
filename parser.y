@@ -23,6 +23,7 @@ DICCIONARIO diccionario; /* variable global para el diccionario */
 %left '*' '/'
 
 %type <valor_real> expresion
+%type <valor_entero> expresionentera
 %type <texto> nombre tipo nombrep tipop c  
 %%    /* Gramatica */
 
@@ -63,12 +64,20 @@ declararvariable1: RESERV_VARIABLE tipovariable
 
 ;
 tipovariable:	RESERV_ENTERO declaracionentero
+		| RESERV_DECIMAL declaraciondecimal
 ;
+declaraciondecimal:	declaraciondecimal ',' asigvalordec
+		|	asigvalordec
+;
+asigvalordec:	IDENTIFICADOR {printf ("Variable %s \n", $1); insertar_diccionario(&diccionario, $1, 0);} 
+		| IDENTIFICADOR ':' '=' expresion {printf("Variable %s = %f \n",$1, $4);insertar_diccionario(&diccionario, $1, $4);}
+;
+
 declaracionentero:	declaracionentero ',' asigvalor
 		|	asigvalor
 ;
 asigvalor:	IDENTIFICADOR {printf ("Variable %s \n", $1); insertar_diccionario(&diccionario, $1, 0);} 
-		| IDENTIFICADOR ':' '=' expresion {printf("Variable %s = %f \n",$1, $4);insertar_diccionario(&diccionario, $1, $4);}
+		| IDENTIFICADOR ':' '=' expresionentera {printf("Variable %s = %d \n",$1, $4);insertar_diccionario(&diccionario, $1, $4);}
 ;
 expresion: CONSTANTE_REAL   { $$ = $1; }
          | CONSTANTE_ENTERA { $$ = (double) $1; }
@@ -87,6 +96,24 @@ expresion: CONSTANTE_REAL   { $$ = $1; }
          | '<' '/' expresion  expresion '>'  { $$ = $3 / $4; }
          | '<' '^' expresion  expresion '>'  { $$ = pow($3,$4); }
          | '<' '%' expresion  expresion '>'  { $$ = (int)$3 % (int)$4; }
+;
+expresionentera: CONSTANTE_REAL   { $$ = (int)$1; }
+         | CONSTANTE_ENTERA { $$ =  $1; }
+         | IDENTIFICADOR    { ENTRADA * entrada = buscar_diccionario(&diccionario,$1);
+                              if (entrada != NULL) { /* encontrada */
+                                 $$ = entrada->valor;
+                              }
+                              else {
+                                 printf("ERROR: variable %s no definida\n", $1);
+                                 $$ = 0;
+                              }
+                            }
+         | '<' '+'  expresionentera expresionentera '>'  { $$ = $3 + $4; }
+         | '<' '-' expresionentera expresionentera  '>' { $$ = $3 - $4; }
+         | '<' '*' expresionentera  expresionentera '>'  { $$ = $3 * $4; }
+         | '<' '/' expresionentera  expresionentera '>'  { $$ = $3 / $4; }
+         | '<' '^' expresionentera  expresionentera '>'  { $$ = pow($3,$4); }
+         | '<' '%' expresionentera  expresionentera '>'  { $$ = (int)$3 % (int)$4; }
 ;
 /*
 declararvariable: RESERV_VARIABLE RESERV_ENTERO IDENTIFICADOR expresionvariable {printf ("Tipo: %s Nombre: %s = \n", $2,$3); } 
