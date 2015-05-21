@@ -19,8 +19,15 @@ PRINCIPAL	{TEXTO}+(".pal")
 %%
 
 "principal"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_PRINCIPAL;}
-"if"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SI;}
+"si"                        {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SI;}
+"sino"                        {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SINO;}
+"sino si"                        {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SINOSI;}
 "menor"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_MENOR;}
+"mayor"			{int largo = strlen(yytext);yycolumno+=largo; return RESERV_MAYOR;}
+"mayorigual"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_MAYORIGUAL;}
+"menorigual"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_MENORIGUAL;}
+"igual"			{int largo = strlen(yytext);yycolumno+=largo; return RESERV_IGUAL;}
+"diferente"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_DIFERENTE;}
 
 "archivo"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_ARCHIVO; }
 "nombre"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_NOMBRE; }

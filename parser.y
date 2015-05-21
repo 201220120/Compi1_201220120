@@ -14,7 +14,8 @@ DICCIONARIO diccionario; /* variable global para el diccionario */
     double valor_real;
     char * texto;
 }
-%token RESERV_ARCHIVO PRENTERO RESERV_PRINCIPAL RESERV_NOMBRE  RESERV_FUNCION RESERV_VARIABLE RESERV_RETORNAR  
+%token RESERV_ARCHIVO PRENTERO RESERV_PRINCIPAL RESERV_NOMBRE  RESERV_FUNCION RESERV_VARIABLE RESERV_RETORNAR   RESERV_SI RESERV_MENOR
+RESERV_MAYOR RESERV_MAYORIGUAL RESERV_MENORIGUAL RESERV_IGUAL RESERV_DIFERENTE RESERV_SINO RESERV_SINOSI
 %token <valor_real> CONSTANTE_REAL
 %token <valor_entero> CONSTANTE_ENTERA
 %token <texto> IDENTIFICADOR TIPO_ARCHIVO TIPO_PRINCIPAL RESERV_TIPO RESERV_FNM RESERV_PAL  RESERV_ENTERO RESERV_DECIMAL RESERV_BOOLEANO
@@ -47,8 +48,9 @@ c:		IDENTIFICADOR '(' parametros ')' '{' cuerpo  retornoentero '}'{$$= $1; }
 d:		IDENTIFICADOR '(' parametros ')' '{' cuerpo  retornodecimal '}'{$$= $1; }
 		| IDENTIFICADOR '(' ')' '{' cuerpo retornodecimal '}'
 ;
-cuerpo:		cuerpo  sentencia
-		| sentencia
+cuerpo:		cuerpo  contenidocuerpo
+		| contenidocuerpo
+		| /* cadena vacia*/
 ;
 retornoentero:	RESERV_RETORNAR expresionentera ';'{printf ("Retorno Entero: %d  \n", $2); }
 ;
@@ -59,8 +61,50 @@ contenidocuerpo: declararvariable1 ';'
 		| retornoentero
 		| sentencia
 ;
-sentencia : declararvariable1 ';' sentencia 
-  | declararvariable1 ';' 
+sentencia: 	si
+	
+;
+si:		RESERV_SI '(' sh 
+sh:		comparacion shh 
+shh:		')' '{' cuerpo '}' h
+		| ')' '{' cuerpo '}' 
+h:		RESERV_SINOSI '('comparacion ')' '{' cuerpo'}' i
+		|/* variable vacia*/
+i:		h
+		|z
+z:		 RESERV_SINO '{' cuerpo '}'
+		
+;
+
+comparacion : expresionentera comparador b
+b  : expresionentera
+  | CONSTANTE_ENTERA
+  | CONSTANTE_REAL
+  ;
+comparador:	RESERV_MENOR
+	|	RESERV_MAYOR 
+	|	RESERV_MAYORIGUAL
+	|	RESERV_MENORIGUAL 
+	|	RESERV_IGUAL 
+	|	RESERV_DIFERENTE
+;
+/*
+si  : PRSI PARIZ sh
+sh  : comparacion shh
+  | oplogica shh
+shh  : PARDE PRENTONCES sentencia h
+h  : PRFINSI
+  | PRSINOSI PARIZ comparacion PARDE PRENTONCES sentencia i
+i  : h
+  | z
+z  : PRSINO PRENTONCES sentencia PRFINSI
+  ;
+*/
+/*
+
+ 
+sentencia : declaracion sentencia 
+  | declaracion 
   | asignacion sentencia 
   | asignacion
   | mientras sentencia 
@@ -76,22 +120,11 @@ sentencia : declararvariable1 ';' sentencia
   | salida sentencia
   | salida
   ;
-/*
+
 si (<mi_variable1 menor 4>) 
 	{  
 		resultado2 : = 3;
 	}
-
-si  : PRSI PARIZ sh
-sh  : comparacion shh
-  | oplogica shh
-shh  : PARDE PRENTONCES sentencia h
-h  : PRFINSI
-  | PRSINOSI PARIZ comparacion PARDE PRENTONCES sentencia i
-i  : h
-  | z
-z  : PRSINO PRENTONCES sentencia PRFINSI
-  ;
 */
 
 declararvariable1: RESERV_VARIABLE tipovariable
@@ -157,7 +190,20 @@ expresionentera: CONSTANTE_REAL   { $$ = (int)$1; }
          | '<' '^' expresionentera  expresionentera '>'  { $$ = pow($3,$4); }
          | '<' '%' expresionentera  expresionentera '>'  { $$ = (int)$3 % (int)$4; }
 ;
+/*
+declararvariable: RESERV_VARIABLE RESERV_ENTERO IDENTIFICADOR expresionvariable {printf ("Tipo: %s Nombre: %s = \n", $2,$3); } 
+		| RESERV_VARIABLE RESERV_BOOLEANO IDENTIFICADOR expresionvariable {printf ("Tipo: %s Nombre:%s %s = \n", $2,$3); }
+		| RESERV_VARIABLE RESERV_DECIMAL IDENTIFICADOR expresionvariable {printf ("Tipo: %s Nombre:%s %s = \n", $2,$3); } 
+;
 
+expresionvariable:  
+		| expresionvariable ',' declarar
+		| declarar 
+;
+declarar:	IDENTIFICADOR {printf ("Variable %s\n", $1); $$=$1;} 
+		|IDENTIFICADOR ':' '=' {printf ("Variable %s\n", $1); $$=$1;} 
+;
+*/
 parametros:	parametros ',' tipoparametro
 		| tipoparametro;
 tipoparametro:	RESERV_ENTERO IDENTIFICADOR {printf ("Parametro de tipo entero: %s  \n", $2); }

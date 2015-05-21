@@ -1,28 +1,27 @@
-funcion entero suma_enteros (entero var1, entero var2) {
-	variable entero resultado;
-	resultado := <+ var1 var2>;
-	retornar resultado;
-}
-
-funcion entero resta_enteros (entero var1, entero var2) {
-	variable entero resultado;
-	resultado := <+ var1 var2>;
-	retornar resultado; 
-}
 
 funcion entero suma_enteros (entero var1, entero var2, decimal var3, booleano var4 )
 {
 	variable entero resultado;
-	variable entero resultado2 := <+4 var1>, resultado4 := <+resultado2 <*4 4>>, resultado5 := <^ 3 2>;
-
-	si (<mi_variable1 menor 4>) 
-	{  
-		resultado2 : = 3;
-	}
+	variable entero resultado2 := 5;
 	
+	si (resultado menor resultado2)
+	{ 
+		variable decimal hola:=2;
+		variable entero uno := resultado2;
+		si (resultado menor resultado2)
+		{ 
+			variable entero prueba;
+			variable entero prueba2 := <+ 1 uno>;
+		}
+	}sino si(resultado mayor resultado2)
+	{
+		variable entero cubica := resultado;
+	}sino
+	{
+		variable entero cuadrada := <+ cubica 1>;
+	}
 
-	variable decimal hola:=2;
-	variable entero uno := resultado2;
+	
 
 	retornar resultado2;
 
