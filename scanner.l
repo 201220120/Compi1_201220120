@@ -19,6 +19,7 @@ PRINCIPAL	{TEXTO}+(".pal")
 %%
 
 "principal"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_PRINCIPAL;}
+"entonces"                     {int largo = strlen(yytext);yycolumno+=largo; return RESERV_ENTONCES;}
 "si"                        {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SI;}
 "sino"                        {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SINO;}
 "sino si"                        {int largo = strlen(yytext);yycolumno+=largo; return RESERV_SINOSI;}
@@ -30,11 +31,18 @@ PRINCIPAL	{TEXTO}+(".pal")
 "diferente"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_DIFERENTE;}
 "mientras"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_MIENTRAS;}
 "para"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_PARA;}
-
+"incluir"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_INCLUIR;}
+"alias"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_ALIAS;}
+"como"		{int largo = strlen(yytext);yycolumno+=largo; return RESERV_COMO;}
 "archivo"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_ARCHIVO; }
 "nombre"		{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_NOMBRE; }
 "tipo"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_TIPO; }
 "funcion"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_FUNCION; }
+"con"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_CON; }
+"ret"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_RET; }
+"paso"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_PASO; }
+"hacer"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_HACER; } 
+"y"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_Y; } 
 "entero"			{ int largo = strlen(yytext);yycolumno+=largo;  yylval.texto = (char *) malloc (strlen(yytext) + 1);
                         strcpy(yylval.texto, yytext);return RESERV_ENTERO; }
 "decimal"			{ int largo = strlen(yytext);yycolumno+=largo;  yylval.texto = (char *) malloc (strlen(yytext) + 1);
@@ -43,6 +51,15 @@ PRINCIPAL	{TEXTO}+(".pal")
                         strcpy(yylval.texto, yytext); return RESERV_BOOLEANO; }
 "variable"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_VARIABLE; }
 "retornar"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_RETORNAR; }
+"ent"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_ENT; }
+"dec"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_DEC; }
+"log"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_LOG; }
+"str"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_STR; }
+"vac"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_VAC; }
+"inicio"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_INICIO; }
+"fin"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_FIN; }
+"repetir"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_REPETIR; }
+"hasta"			{ int largo = strlen(yytext);yycolumno+=largo;  return RESERV_HASTA; }
 
 
 "fnm"		{ int largo = strlen(yytext);yycolumno+=largo; yylval.texto = (char *) malloc (strlen(yytext) + 1);
@@ -59,7 +76,7 @@ PRINCIPAL	{TEXTO}+(".pal")
                         return (CONSTANTE_REAL);
                       }
                       
-"+"|"-"|"*"|"/"|"="|"{"|"}"|":"|"\""|","|"("|")"|"<"|">"|";"|"%"|"^"   { return (yytext[0]); yycolumno++;}
+"+"|"-"|"*"|"/"|"="|"{"|"}"|":"|"\""|","|"("|")"|"<"|">"|";"|"%"|"^"|"¬"|"."   { return (yytext[0]); yycolumno++;}
 "\n"                   {  yycolumno=1;}
 " "                     {}
 [\t\r\f] {}
@@ -76,7 +93,7 @@ PRINCIPAL	{TEXTO}+(".pal")
                         strcpy(yylval.texto, yytext);return TIPO_PRINCIPAL; 
                       }
 
-
+"#"             return END; /*regexp para # (fin de instruccion) */ ;
 
 .                    {printf ("Error lexico: %s \n\n", yytext);}
 

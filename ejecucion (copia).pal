@@ -1,0 +1,19 @@
+incluir "funciones.fnm" alias fun
+
+Imprimir {} como vac
+inicio funcion
+	contador como ent
+	contador con 5
+	repetir
+		imprimir('hola mundo')
+	hasta 5
+fin funcion
+
+principal {} como vac
+inicio funcion
+	valor1 como ent
+	valor1 con 3
+	Imprimir()
+	fun.suma_enteros(valor1,2)
+	fun.resta_enteros(5,valor1)
+fin funcion

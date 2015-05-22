@@ -63,17 +63,35 @@ extern int yydebug;
     RESERV_SINOSI = 273,
     RESERV_MIENTRAS = 274,
     RESERV_PARA = 275,
-    CONSTANTE_REAL = 276,
-    CONSTANTE_ENTERA = 277,
-    IDENTIFICADOR = 278,
-    TIPO_ARCHIVO = 279,
-    TIPO_PRINCIPAL = 280,
-    RESERV_TIPO = 281,
-    RESERV_FNM = 282,
-    RESERV_PAL = 283,
-    RESERV_ENTERO = 284,
-    RESERV_DECIMAL = 285,
-    RESERV_BOOLEANO = 286
+    RESERV_INCLUIR = 276,
+    RESERV_ALIAS = 277,
+    RESERV_ENT = 278,
+    RESERV_DEC = 279,
+    RESERV_LOG = 280,
+    RESERV_STR = 281,
+    RESERV_VAC = 282,
+    RESERV_COMO = 283,
+    RESERV_INICIO = 284,
+    RESERV_FIN = 285,
+    RESERV_RET = 286,
+    RESERV_CON = 287,
+    RESERV_ENTONCES = 288,
+    RESERV_REPETIR = 289,
+    RESERV_HASTA = 290,
+    RESERV_PASO = 291,
+    RESERV_HACER = 292,
+    RESERV_Y = 293,
+    CONSTANTE_REAL = 294,
+    CONSTANTE_ENTERA = 295,
+    IDENTIFICADOR = 296,
+    TIPO_ARCHIVO = 297,
+    TIPO_PRINCIPAL = 298,
+    RESERV_TIPO = 299,
+    RESERV_FNM = 300,
+    RESERV_PAL = 301,
+    RESERV_ENTERO = 302,
+    RESERV_DECIMAL = 303,
+    RESERV_BOOLEANO = 304
   };
 #endif
 
@@ -88,7 +106,7 @@ union YYSTYPE
     double valor_real;
     char * texto;
 
-#line 92 "parser.tab.h" /* yacc.c:1909  */
+#line 110 "parser.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
