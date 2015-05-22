@@ -4,8 +4,7 @@
 #include<math.h>
 
 #include "diccionario.h"
-#define YYDEBUG 1
-  // usar YYLTYPE para localizacion de lineas
+
 DICCIONARIO diccionario; /* variable global para el diccionario */
   extern FILE *yyin;
 %}
@@ -18,7 +17,7 @@ DICCIONARIO diccionario; /* variable global para el diccionario */
 }
 %token RESERV_ARCHIVO PRENTERO RESERV_PRINCIPAL RESERV_NOMBRE  RESERV_FUNCION RESERV_VARIABLE RESERV_RETORNAR   RESERV_SI RESERV_MENOR
 RESERV_MAYOR RESERV_MAYORIGUAL RESERV_MENORIGUAL RESERV_IGUAL RESERV_DIFERENTE RESERV_SINO RESERV_SINOSI RESERV_MIENTRAS RESERV_PARA
-RESERV_INCLUIR RESERV_ALIAS RESERV_ENT RESERV_DEC RESERV_LOG RESERV_STR RESERV_VAC RESERV_COMO RESERV_INICIO  RESERV_FIN RESERV_RET RESERV_CON END
+RESERV_INCLUIR RESERV_ALIAS RESERV_ENT RESERV_DEC RESERV_LOG RESERV_STR RESERV_VAC RESERV_COMO RESERV_INICIO  RESERV_FIN RESERV_RET RESERV_CON
 RESERV_ENTONCES RESERV_REPETIR RESERV_HASTA RESERV_PASO RESERV_HACER RESERV_Y
 %token <valor_real> CONSTANTE_REAL
 %token <valor_entero> CONSTANTE_ENTERA
@@ -384,11 +383,6 @@ fclose(pf);
     
 }
 
-void yyerror(const char *str) {
-      // Redefinir para mi propio manejador de errores
-      fprintf(stdin,"mi error: %s\n",str);
-    }
-    
-    int yywrap(){
-      return 1;
-    } 
+yyerror (char *s) { printf ("%s\n", s);  }
+
+int yywrap()  { return 1; }

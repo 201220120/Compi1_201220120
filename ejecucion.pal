@@ -10,7 +10,7 @@ inicio funcion
 	si contador3 < contador5 entonces
 		contador2 con 6
 		contador4 con contador2+2
-	fin si 
+	fin si
 
 	repetir
 		contador con 5

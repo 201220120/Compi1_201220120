@@ -93,7 +93,7 @@ PRINCIPAL	{TEXTO}+(".pal")
                         strcpy(yylval.texto, yytext);return TIPO_PRINCIPAL; 
                       }
 
-"#"             return END; /*regexp para # (fin de instruccion) */ ;
+
 
 .                    {printf ("Error lexico: %s \n\n", yytext);}
 
